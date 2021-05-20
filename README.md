@@ -12,7 +12,7 @@ It receives `username` as a single argument:
 npx gogofast MauricioRobayo
 ```
 
-**Tip:** Create an alias on your `.bashrc` file of your preferred shell:
+**Tip:** Create an alias on your `.bashrc` file (or your preferred shell):
 
 ```
 alias ggf='npx --quiet gogofast MauricioRobayo'
