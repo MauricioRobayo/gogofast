@@ -44,21 +44,24 @@ const start = async () => {
     }
 
     const randomSnippet = snippets[Math.floor(Math.random() * snippets.length)];
-    const [{ raw_url: rawUrl }] = Object.values(randomSnippet.files);
-    const { data } = await axios.get(rawUrl);
-    const { name: filename } = tmp.fileSync();
-    const lines = data.split("\n");
-    const height = lines.length;
-    const width = lines.reduce((acc, val) => Math.max(val.length, acc), 0);
-    fs.writeFileSync(filename, data);
+    const files = Object.values(randomSnippet.files);
+    for (const file of files) {
+      const { data } = await axios.get(file.raw_url);
+      const { name: filename } = tmp.fileSync();
+      fs.writeFileSync(filename, data);
 
-    child_process.spawn(
-      "gotta-go-fast",
-      [`--height=${height}`, `--width=${width}`, filename],
-      {
-        stdio: "inherit",
-      }
-    );
+      const lines = data.split("\n");
+      const height = lines.length;
+      const width = lines.reduce((acc, val) => Math.max(val.length, acc), 0);
+
+      child_process.spawnSync(
+        "gotta-go-fast",
+        [`--height=${height}`, `--width=${width}`, filename],
+        {
+          stdio: "inherit",
+        }
+      );
+    }
   } catch (error) {
     if (error.status === 404) {
       console.error(`Could not find gists for username '${username}'!`);
