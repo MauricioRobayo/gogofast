@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import commandExists from "command-exists";
 import axios from "axios";
 import { Octokit } from "octokit";
@@ -8,7 +10,7 @@ import child_process from "child_process";
 const octokit = new Octokit();
 const username = "MauricioRobayo";
 const PER_PAGE_RESULTS = 100;
-const GGF_TAG = "#ggf";
+const GGF_TAG = "#gogofast";
 
 const start = async () => {
   try {
@@ -45,12 +47,18 @@ const start = async () => {
     const [{ raw_url: rawUrl }] = Object.values(randomSnippet.files);
     const { data } = await axios.get(rawUrl);
     const { name: filename } = tmp.fileSync();
-    const height = data.split("\n").length;
+    const lines = data.split("\n");
+    const height = lines.length;
+    const width = lines.reduce((acc, val) => Math.max(val.length, acc), 0);
     fs.writeFileSync(filename, data);
 
-    child_process.spawn("gotta-go-fast", [`--height=${height}`, filename], {
-      stdio: "inherit",
-    });
+    child_process.spawn(
+      "gotta-go-fast",
+      [`--height=${height}`, `--width=${width}`, filename],
+      {
+        stdio: "inherit",
+      }
+    );
   } catch (error) {
     console.log(error);
     process.exit(1);

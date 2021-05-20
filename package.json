@@ -1,10 +1,10 @@
 {
-  "name": "ggf",
+  "name": "gogofast",
   "version": "1.0.0",
   "description": "",
-  "main": "ggf",
+  "main": "gogofast",
   "bin": {
-    "ggf": "./ggf.js"
+    "gogofast": "./gogofast.js"
   },
   "type": "module",
   "scripts": {
@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MauricioRobayo/ggf.git"
+    "url": "git+https://github.com/MauricioRobayo/gogofast.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/MauricioRobayo/ggf/issues"
+    "url": "https://github.com/MauricioRobayo/gogofast/issues"
   },
-  "homepage": "https://github.com/MauricioRobayo/ggf#readme",
+  "homepage": "https://github.com/MauricioRobayo/gogofast#readme",
   "dependencies": {
     "axios": "^0.21.1",
     "command-exists": "^1.2.9",
