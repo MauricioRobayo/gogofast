@@ -1,0 +1,26 @@
+{
+  "name": "ggf",
+  "version": "1.0.0",
+  "description": "",
+  "main": "ggf",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --write samples",
+    "install": "ln -s $PWD/ggf $HOME/.local/bin"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MauricioRobayo/ggf.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MauricioRobayo/ggf/issues"
+  },
+  "homepage": "https://github.com/MauricioRobayo/ggf#readme",
+  "dependencies": {
+    "@types/react": "^17.0.6",
+    "prettier": "^2.3.0",
+    "react": "^17.0.2"
+  }
+}

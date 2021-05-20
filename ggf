@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+SCRIPT=$(realpath $0)
+SCRIPTPATH=$(dirname "$SCRIPT")
+SAMPLE="$(find "${SCRIPTPATH}"/samples -type f | shuf -n 1)"
+gotta-go-fast --height="$(wc -l < "${SAMPLE}")" "${SAMPLE}"
