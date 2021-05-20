@@ -1,10 +1,12 @@
 # gogofast
 
-Practice on the command line your typing skills with snippets stored as gists.
-
 **Requires [gotta-go-fast](https://github.com/callum-oakley/gotta-go-fast) installed**.
 
+Practice on the command line your touch typing skills with snippets stored as gists.
+
 It will pick a random gist with the `#gogofast` tag in the description.
+
+If a gist has multiple files it will go through all the files in a single session one after the other.
 
 It receives `username` as a single argument:
 
@@ -22,7 +24,6 @@ Use it as `ggf` and profit.
 
 ## TODO
 
-- [] Add support for gists with multiple files. If a gist has multiple files we could go through all the files in a single session one after the other.
 - [] Add pagination when the returned gists exceeds 100.
 
 ## Acknowledgments
