@@ -28,5 +28,11 @@
   },
   "engines": {
     "node": ">=12"
-  }
+  },
+  "keywords": [
+    "touch typing",
+    "typing cli",
+    "typing",
+    "cli"
+  ]
 }
