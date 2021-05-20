@@ -8,7 +8,7 @@ import fs from "fs";
 import child_process from "child_process";
 
 const octokit = new Octokit();
-const username = "MauricioRobayo";
+const username = process.argv[2] || "MauricioRobayo";
 const PER_PAGE_RESULTS = 100;
 const GGF_TAG = "#gogofast";
 
@@ -60,7 +60,11 @@ const start = async () => {
       }
     );
   } catch (error) {
-    console.log(error);
+    if (error.status === 404) {
+      console.error(`Could not find gists for username '${username}'!`);
+    } else {
+      console.error(error);
+    }
     process.exit(1);
   }
 };
