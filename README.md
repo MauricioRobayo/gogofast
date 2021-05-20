@@ -33,6 +33,7 @@ Use it as `ggf` and profit.
 ## TODO
 
 - [ ] Add pagination when the returned gists exceeds 100.
+- [ ] Add support for `PARAGRAPH MODE` based on the gist file extension, if extension is `.txt` then use `PARAGRAPH MODE`.
 
 ## Acknowledgments
 
