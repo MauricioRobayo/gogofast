@@ -40,7 +40,7 @@ const start = async () => {
 
     if (snippets.length === 0) {
       console.log(`No gists with tag '${GGF_TAG}' found!`);
-      process.exit();
+      process.exit(1);
     }
 
     const randomSnippet = snippets[Math.floor(Math.random() * snippets.length)];

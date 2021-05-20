@@ -9,13 +9,13 @@ It will pick a random gist with the `#gogofast` tag in the description.
 It receives `username` as a single argument:
 
 ```
-npx gogofast -- MauricioRobayo
+npx gogofast MauricioRobayo
 ```
 
 **Tip:** Create an alias on your `.bashrc` file of your preferred shell:
 
 ```
-alias ggf='npx --quiet gogofast -- MauricioRobayo'
+alias ggf='npx --quiet gogofast MauricioRobayo'
 ```
 
 Use it as `ggf` and profit.
