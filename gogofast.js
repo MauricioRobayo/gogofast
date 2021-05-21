@@ -44,23 +44,23 @@ const start = async () => {
     }
 
     const randomSnippet = snippets[Math.floor(Math.random() * snippets.length)];
-    const files = Object.values(randomSnippet.files);
-    for (const file of files) {
-      const { data } = await axios.get(file.raw_url);
-      const { name: filename } = tmp.fileSync();
-      fs.writeFileSync(filename, data);
+    const files = Object.entries(randomSnippet.files);
+    for (const [filename, fileDetails] of files) {
+      const { data } = await axios.get(fileDetails.raw_url);
+      const tmpFile = tmp.fileSync();
+      fs.writeFileSync(tmpFile.name, data);
 
       const lines = data.split("\n");
       const height = lines.length;
       const width = lines.reduce((acc, val) => Math.max(val.length, acc), 0);
 
-      child_process.spawnSync(
-        "gotta-go-fast",
-        [`--height=${height}`, `--width=${width}`, filename],
-        {
-          stdio: "inherit",
-        }
-      );
+      const args = filename.endsWith(".txt")
+        ? ["--paragraph", "--width=60", "--reflow", tmpFile.name]
+        : [`--height=${height}`, `--width=${width}`, tmpFile.name];
+
+      child_process.spawnSync("gotta-go-fast", args, {
+        stdio: "inherit",
+      });
     }
   } catch (error) {
     if (error.status === 404) {
