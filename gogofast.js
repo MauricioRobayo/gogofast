@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-import commandExists from "command-exists";
-import axios from "axios";
-import { Octokit } from "octokit";
-import tmp from "tmp";
-import fs from "fs";
-import child_process from "child_process";
+const commandExists = require("command-exists");
+const axios = require("axios").default;
+const { Octokit } = require("octokit");
+const tmp = require("tmp");
+const fs = require("fs");
+const child_process = require("child_process");
 
 const octokit = new Octokit();
 const username = process.argv[2] || "MauricioRobayo";
@@ -34,9 +34,12 @@ const start = async () => {
       );
     }
 
-    const snippets = gists.data.filter((gist) =>
-      gist.description?.includes(GGF_TAG)
-    );
+    const snippets = gists.data.filter((gist) => {
+      if (gist.description) {
+        return gist.description.includes(GGF_TAG);
+      }
+      return false;
+    });
 
     if (snippets.length === 0) {
       console.log(`No gists with tag '${GGF_TAG}' found!`);
