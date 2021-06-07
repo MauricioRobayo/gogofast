@@ -66,12 +66,11 @@ const start = async () => {
       process.exit(1);
     }
 
-    let { files } = snippets.find(({ id }) => id === process.argv[3]) || {};
-    if (!files) {
-      files = snippets[Math.floor(Math.random() * snippets.length)].files;
-    }
+    const snippet =
+      snippets.find(({ id }) => id === process.argv[3]) ||
+      snippets[Math.floor(Math.random() * snippets.length)];
 
-    await goGoFast(Object.entries(files));
+    await goGoFast(Object.entries(snippet.files));
   } catch (error) {
     if (error.status === 404) {
       console.error(`Could not find gists for username '${username}'!`);
