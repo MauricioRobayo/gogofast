@@ -8,10 +8,16 @@ It will pick a random gist with the `#gogofast` tag in the description.
 
 If a gist has multiple files in it, it will go through all the files in a single session one after the other.
 
-It receives `username` as a single argument:
+It receives `username` as an argument:
 
 ```
 npx gogofast <username>
+```
+
+If you want to practice an specific gist, you can pass a second argument with the gist id:
+
+```
+npx gogofast <username> <gist id>
 ```
 
 ## Example
