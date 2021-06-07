@@ -12,6 +12,26 @@ const username = process.argv[2] || "MauricioRobayo";
 const PER_PAGE_RESULTS = 100;
 const GGF_TAG = "#gogofast";
 
+const goGoFast = async (files) => {
+  for (const [filename, fileDetails] of files) {
+    const { data } = await axios.get(fileDetails.raw_url);
+    const tmpFile = tmp.fileSync();
+    fs.writeFileSync(tmpFile.name, data);
+
+    const lines = data.split("\n");
+    const height = lines.length;
+    const width = lines.reduce((acc, val) => Math.max(val.length, acc), 0);
+
+    const args = filename.endsWith(".txt")
+      ? ["--paragraph", "--width=60", "--reflow", tmpFile.name]
+      : [`--height=${height}`, `--width=${width}`, tmpFile.name];
+
+    child_process.spawnSync("gotta-go-fast", args, {
+      stdio: "inherit",
+    });
+  }
+};
+
 const start = async () => {
   try {
     await commandExists("gotta-go-fast");
@@ -30,7 +50,7 @@ const start = async () => {
 
     if (gists.data.length > PER_PAGE_RESULTS) {
       console.log(
-        `Got more than a ${PER_PAGE_RESULTS} results. Need to paginate!`
+        `Got more than a ${PER_PAGE_RESULTS} results. Time to paginate!`
       );
     }
 
@@ -46,25 +66,12 @@ const start = async () => {
       process.exit(1);
     }
 
-    const randomSnippet = snippets[Math.floor(Math.random() * snippets.length)];
-    const files = Object.entries(randomSnippet.files);
-    for (const [filename, fileDetails] of files) {
-      const { data } = await axios.get(fileDetails.raw_url);
-      const tmpFile = tmp.fileSync();
-      fs.writeFileSync(tmpFile.name, data);
-
-      const lines = data.split("\n");
-      const height = lines.length;
-      const width = lines.reduce((acc, val) => Math.max(val.length, acc), 0);
-
-      const args = filename.endsWith(".txt")
-        ? ["--paragraph", "--width=60", "--reflow", tmpFile.name]
-        : [`--height=${height}`, `--width=${width}`, tmpFile.name];
-
-      child_process.spawnSync("gotta-go-fast", args, {
-        stdio: "inherit",
-      });
+    let { files } = snippets.find(({ id }) => id === process.argv[3]) || {};
+    if (!files) {
+      files = snippets[Math.floor(Math.random() * snippets.length)].files;
     }
+
+    await goGoFast(Object.entries(files));
   } catch (error) {
     if (error.status === 404) {
       console.error(`Could not find gists for username '${username}'!`);
