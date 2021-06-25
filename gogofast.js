@@ -66,9 +66,18 @@ const start = async () => {
       process.exit(1);
     }
 
-    const snippet =
-      snippets.find(({ id }) => id === process.argv[3]) ||
-      snippets[Math.floor(Math.random() * snippets.length)];
+    let snippet;
+    if (process.argv[3]) {
+      const snippetId = process.argv[3];
+      snippet = snippets.find(({ id }) => id === snippetId)
+      if (!snippet) {
+        console.error(`Could not find snippet '${snippetId}'. Make sure it has #gogofast on the description.`)
+        process.exit(1);
+      }
+    } else {
+      snippet = snippets[Math.floor(Math.random() * snippets.length)];
+    }
+
 
     await goGoFast(Object.entries(snippet.files));
   } catch (error) {
