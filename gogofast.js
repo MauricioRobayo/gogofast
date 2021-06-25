@@ -20,7 +20,7 @@ const goGoFast = async (files) => {
 
     const lines = data.split("\n");
     const height = lines.length;
-    const width = lines.reduce((acc, val) => Math.max(val.length, acc), 0);
+    const width = Math.max(...lines.map((line) => line.length))
 
     const args = filename.endsWith(".txt")
       ? ["--paragraph", "--width=60", "--reflow", tmpFile.name]
