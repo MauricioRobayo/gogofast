@@ -1,3 +1,7 @@
+**No longer maintained**
+
+Use [Code Typer](https://codetyper.io) instead.
+
 # gogofast
 
 **Requires [gotta-go-fast](https://github.com/callum-oakley/gotta-go-fast) installed**.
